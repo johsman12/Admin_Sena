@@ -25,6 +25,12 @@ return new class extends Migration
             ->onDelete('cascade')
             ->onUpdate('cascade');
 
+            $table->foreign('training_center_id')
+            ->references('id')
+           ->on('training_centers') 
+           ->onDelete('cascade')
+           ->onUpdate('cascade');
+
             $table->timestamps();
         });
     }
