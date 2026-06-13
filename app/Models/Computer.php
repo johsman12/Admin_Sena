@@ -8,8 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Computer extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['brand', 'number'];
+    
     // El computador pertenece a un aprendiz
-    public function apprentice() {
+   public function apprentice() {
         return $this->hasOne('App\Models\Apprentices', 'computer_id');
     }
 }

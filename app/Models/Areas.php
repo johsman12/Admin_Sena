@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Areas extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['name'];
+    
     // Un area tiene muchos instructores
     public function teachers() {
         return $this->hasMany('App\Models\Teachers', 'area_id');
