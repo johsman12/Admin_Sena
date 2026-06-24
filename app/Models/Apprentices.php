@@ -8,7 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Apprentices extends Model
 {
     use HasFactory;
-
+    protected $fillable = [
+        'name',
+        'email',
+        'cell_number',
+        'course_id',
+        'computer_id',
+    ];
     // El aprendiz pertenece a un curso
     public function course() {
         return $this->belongsTo('App\Models\Courses', 'course_id');

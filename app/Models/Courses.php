@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Courses extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'course_number',
+        'day',
+        'area_id',
+        'training_center_id',
+    ];
     
     // Un curso tiene muchos aprendices
     public function apprentices() {
