@@ -1,108 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    
-    <style>
-        /* Fondo general de la página y centrado del formulario */
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f3f4f6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
-        }
+@extends('layouts.app')
 
-        /* Contenedor del formulario con diseño de tarjeta moderna */
-        form {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            width: 100%;
-            max-width: 400px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px; /* Reemplaza los <br> dando un espacio uniforme */
-        }
+@section('content')
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-lg border-0">
+            <div class="card-header bg-primary text-white text-center">
+                <h4 class="mb-0">Registro del Centro de Formación</h4>
+            </div>
+            <div class="card-body p-4">
+                
+                {{-- Mensaje de éxito si el registro fue correcto --}}
+                @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
 
-        /* Estilo para las etiquetas de texto */
-        label {
-            font-size: 14px;
-            font-weight: 600;
-            color: #374151;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        /* Estilo para los campos de entrada de texto */
-        input[type="text"] {
-            padding: 10px 14px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            font-size: 15px;
-            color: #1f2937;
-            background-color: #fff;
-            outline: none;
-            transition: all 0.2s ease-in-out;
-            box-sizing: border-box;
-            width: 100%;
-        }
-
-        /* Efecto de enfoque azul al hacer clic en un input */
-        input[type="text"]:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-        }
-
-        /* Estilo del botón de envío */
-        button {
-            background-color: #2563eb;
-            color: #ffffff;
-            font-size: 15px;
-            font-weight: 600;
-            padding: 12px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            margin-top: 5px;
-        }
-
-        /* Efecto al pasar el cursor sobre el botón */
-        button:hover {
-            background-color: #1d4ed8;
-        }
-        
-        /* Efecto de clic en el botón */
-        button:active {
-            transform: scale(0.98);
-        }
-    </style>
-</head>
-<body>
-
-    <form action="{{route('training_center.salidas')}}" method="POST" enctype="multipart/form-data">
-        <h1 style="text-align: center">Registro del Centro de Formacion</h1>
-        @csrf
-        <label>
-            Nombre:
-            <input type="text" name="name" placeholder="Ej. Centro de Innovación">
-        </label>
-        
-        <label>
-            Ubicación:
-            <input type="text" name="location" placeholder="Ej. Bloque B, Piso 2">
-        </label>
-        <button type="submit">Enviar Formulario</button>
-    </form>
-</body>
-</html>
+                {{-- Formulario --}}
+                <form action="{{ route('training_center.salidas') }}" method="POST">
+                    @csrf
+                    
+                    <div class="mb-3">
+                        <label for="name" class="form-label fw-bold">Nombre del Centro:</label>
+                        <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="Ej. Centro de Innovación" value="{{ old('name') }}" required>
+                        @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="location" class="form-label fw-bold">Ubicación:</label>
+                        <input type="text" name="location" id="location" class="form-control @error('location') is-invalid @enderror" placeholder="Ej. Bloque B, Piso 2" value="{{ old('location') }}" required>
+                        @error('location')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100 py-2 mt-3">
+                        <i class="fa fa-save me-2"></i>Guardar Registro
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

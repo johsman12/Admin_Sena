@@ -1,106 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body{
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #f4f6f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        form{
-            background-color: white;
-            width: 700px;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        h1{
-            text-align: center;
-        }
-        input,
-        select{
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ced4da;
-            border-radius: 6px;
-            font-size: 15px;
-            outline: none;
-            transition: 0.3s;
-        }
-        input:focus,
-        select:focus{
-            border-color: #007bff;
-            box-shadow: 0 0 5px rgba(0,123,255,0.4);
-        }
-        button{
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-        button:hover{
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
-    <form action="{{ route('apprentice.completado') }}" method="POST" enctype="multipart/form-data">
-        <h1 style="text-align: center">Registro de Aprendiz</h1>
-        @csrf
-        <label>
-            Nombre:
-            <br>
-            <input type="text" name="name">
-        </label>
-        <label>
-            email:
-            <br>
-            <input type="email" name="email">
-        </label>
-        <label>
-            numero de celular:
-            <br>
-            <input type="number" name="cell_number">
-        </label>
-        <label for="course_id">Usuario</label>
-        <select name="course_id" id="course" class="form-control">
-            <option value="">Seleccione un cursos</option>
-            @foreach ($courses as $course)
-                <option value="{{ $course->id }}">
-                    {{ $course->name }}
-                </option>
-            @endforeach
-        </select>
-        <select name="computer_id">
-            <option value="">Seleccione un computador</option>
-            @foreach ($computers as $computer)
-                <option value="{{ $computer->id }}">
-                    {{ $computer->name }}
-                </option>
-            @endforeach
-        </select>
-        <br>
-        <button type="submit">Enviar Formulario</button>
-    </form>
-</body>
-</html>
+@extends('layouts.app')
+
+@section('content')
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <h1 class="text-center mb-4">Registro de Aprendiz</h1>
+                
+                <form action="{{ route('apprentice.completado') }}" method="POST">
+                    @csrf
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Nombre:</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Email:</label>
+                        <input type="email" name="email" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Número de celular:</label>
+                        <input type="number" name="cell_number" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Curso:</label>
+                        <select name="course_id" class="form-select">
+                            <option value="">Seleccione un curso</option>
+                            @foreach ($courses as $course)
+                                <option value="{{ $course->id }}">{{ $course->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Computador:</label>
+                        <select name="computer_id" class="form-select">
+                            <option value="">Seleccione un computador</option>
+                            @foreach ($computers as $computer)
+                                <option value="{{ $computer->id }}">{{ $computer->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 py-2">Enviar Formulario</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

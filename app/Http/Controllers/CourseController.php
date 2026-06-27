@@ -12,7 +12,7 @@ class CourseController extends Controller{
     public function registro(){
         $areas=Areas::all();
         $training_centers=TrainingCenters::all();
-        return view('course.registros',compact('areas','training_centers'));
+       return view('course.create', compact('areas', 'training_centers'));
     } 
     public function dato(Request $request){
         Courses::create($request->all());
