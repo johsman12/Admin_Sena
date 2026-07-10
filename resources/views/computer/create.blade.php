@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Registro del Computador</title>
     
     <style>
-        /* Centra el formulario en la pantalla y da un fondo suave */
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: #f3f4f6;
@@ -20,7 +19,6 @@
             box-sizing: border-box;
         }
 
-        /* Contenedor tipo tarjeta del formulario */
         form {
             background-color: #ffffff;
             padding: 30px;
@@ -30,10 +28,15 @@
             max-width: 400px;
             display: flex;
             flex-direction: column;
-            gap: 20px; /* Controla la separación entre elementos de forma limpia sin usar <br> */
+            gap: 20px;
         }
 
-        /* Estructura y diseño de las etiquetas de texto */
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            color: #39A900; /* Verde SENA */
+        }
+
         label {
             font-size: 14px;
             font-weight: 600;
@@ -43,7 +46,6 @@
             gap: 6px;
         }
 
-        /* Estilos comunes para los inputs (tanto text como number) */
         input[type="text"],
         input[type="number"] {
             padding: 10px 14px;
@@ -58,16 +60,16 @@
             width: 100%;
         }
 
-        /* Cambia el color del borde y añade un leve brillo al hacer clic */
+        /* Enfoque en verde SENA */
         input[type="text"]:focus,
         input[type="number"]:focus {
-            border-color: #4f46e5;
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+            border-color: #39A900;
+            box-shadow: 0 0 0 3px rgba(57, 169, 0, 0.15);
         }
 
-        /* Botón de envío estilizado */
+        /* Botón verde SENA */
         button {
-            background-color: #007bff;
+            background-color: #39A900;
             color: #ffffff;
             font-size: 15px;
             font-weight: 600;
@@ -79,7 +81,7 @@
             margin-top: 5px;
         }
         button:hover {
-            background-color: #256cb8;
+            background-color: #2d8700;
         }
         button:active {
             transform: scale(0.98);
@@ -91,12 +93,12 @@
         <h1>Registro del Computador</h1>
         @csrf        
         <label>
-            Número:
-            <input type="number" name="numero" placeholder="Ej. 1024">
+            Numero:
+            <input type="number" name="number" placeholder="Ej. 1024" required>
         </label>
         <label>
             Marca:
-            <input type="text" name="marca" placeholder="Ej. Dell, Lenovo, HP">
+            <input type="text" name="brand" placeholder="Ej. Dell, Lenovo, HP" required>
         </label>
         <button type="submit">Enviar Formulario</button>
     </form>

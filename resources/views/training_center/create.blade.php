@@ -4,12 +4,13 @@
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card shadow-lg border-0">
-            <div class="card-header bg-primary text-white text-center">
+            <!-- Header con verde institucional -->
+            <div class="card-header text-white text-center" style="background-color: #39A900;">
                 <h4 class="mb-0">Registro del Centro de Formación</h4>
             </div>
             <div class="card-body p-4">
                 
-                {{-- Mensaje de éxito si el registro fue correcto --}}
+                {{-- Mensaje de éxito --}}
                 @if(session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ session('success') }}

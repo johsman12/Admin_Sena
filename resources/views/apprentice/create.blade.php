@@ -5,7 +5,8 @@
     <div class="col-md-8">
         <div class="card shadow-sm border-0">
             <div class="card-body p-4">
-                <h1 class="text-center mb-4">Registro de Aprendiz</h1>
+                <!-- Título con color verde SENA -->
+                <h1 class="text-center mb-4" style="color: #39A900;">Registro de Aprendiz</h1>
                 
                 <form action="{{ route('apprentice.completado') }}" method="POST">
                     @csrf
@@ -45,6 +46,7 @@
                         </select>
                     </div>
 
+                    <!-- El botón será verde automáticamente gracias al CSS de tu layout -->
                     <button type="submit" class="btn btn-primary w-100 py-2">Enviar Formulario</button>
                 </form>
             </div>
