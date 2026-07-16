@@ -9,25 +9,24 @@ use App\Models\Computer;
 
 class ApprenticeController extends Controller
 {
-    /**
-     * Muestra el formulario de registro.
-     */
-    public function registro()
+    // Muestra la lista de aprendices
+    public function index()
     {
-        // Obtenemos todos los cursos y computadores para llenar los selects
+        $apprentices = Apprentices::all();
+        return view('apprentice.index', compact('apprentices'));
+    }
+
+    // Muestra el formulario de registro (Cambiado de 'registro' a 'create')
+    public function create()
+    {
         $courses = Courses::all(); 
         $computers = Computer::all();
-        
-        // Retornamos la vista ubicada en resources
         return view('apprentice.create', compact('courses', 'computers'));
     }
     
-    /**
-     * Procesa los datos enviados desde el formulario.
-     */
-    public function dato(Request $request)
+    // Procesa los datos (Cambiado de 'dato' a 'store')
+    public function store(Request $request)
     {
-        // 1. Validar que la información recibida sea correcta
         $request->validate([
             'name'        => 'required|string|max:255',
             'email'       => 'required|email|unique:apprentices,email',
@@ -36,11 +35,33 @@ class ApprenticeController extends Controller
             'computer_id' => 'required|exists:computers,id',
         ]);
 
-        // 2. Guardar el nuevo aprendiz en la base de datos
         Apprentices::create($request->all());
 
-        // 3. Redirigir al usuario al formulario nuevamente con un mensaje de éxito
-        // Usamos el nombre de la ruta que muestra el formulario 
-        return redirect()->route('apprentice.create')->with('success', 'Aprendiz registrado con éxito.');
+        return redirect()->route('apprentice.index')->with('success', 'Aprendiz registrado con éxito.');
     }
-}   
+
+    // Edición
+    public function edit(int $id)
+    {
+        $apprentice = Apprentices::findOrFail($id);
+        $courses = Courses::all();
+        $computers = Computer::all();
+        return view('apprentice.edit', compact('apprentice', 'courses', 'computers'));
+    }
+
+    // Actualización
+    public function update(Request $request, int $id)
+    {
+        $apprentice = Apprentices::findOrFail($id);
+        $apprentice->update($request->all());
+        return redirect()->route('apprentice.index')->with('success', 'Aprendiz actualizado con éxito.');
+    }
+
+    // Eliminación
+    public function destroy(int $id)
+    {
+        $apprentice = Apprentices::findOrFail($id);
+        $apprentice->delete();
+        return redirect()->route('apprentice.index')->with('success', 'Aprendiz eliminado con éxito.');
+    }
+}

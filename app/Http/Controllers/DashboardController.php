@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Apprentice;
-use App\Models\Teacher;
-use App\Models\Course;
+// Importa los nombres tal cual aparecen en tu carpeta Models
+use App\Models\Apprentices;
+use App\Models\Teachers;
+use App\Models\Courses;
 use App\Models\Computer;
 
 class DashboardController extends Controller
@@ -12,9 +13,10 @@ class DashboardController extends Controller
     public function index()
     {
         $data = [
-            'totalAprendices' => Apprentice::count(),
-            'totalInstructores' => Teacher::count(),
-            'totalCursos' => Course::count(),
+            // Usa los nombres de clase correctos aquí también
+            'totalAprendices' => Apprentices::count(),
+            'totalInstructores' => Teachers::count(),
+            'totalCursos' => Courses::count(),
             'totalEquipos' => Computer::count(),
         ];
         

@@ -41,8 +41,7 @@
             <li><a href="{{route('area.create')}}"><i class="fas fa-layer-group"></i> Áreas</a></li>
             <li><a href="{{route('computer.create')}}"><i class="fas fa-computer"></i> Computadores</a></li>
             <li><a href="{{route('training_center.create')}}"><i class="fas fa-building"></i> Centros</a></li>
-            <li><a href="{{route('course.registro')}}"><i class="fas fa-book"></i> Cursos</a></li>
-            <li><a href="{{route('teacher.create')}}"><i class="fas fa-chalkboard-user"></i> Instructores</a></li>
+            <li><a href="{{ route('course.create') }}"><i class="fas fa-book"></i> Cursos</a></li>            <li><a href="{{route('teacher.create')}}"><i class="fas fa-chalkboard-user"></i> Instructores</a></li>
             <li><a href="{{route('apprentice.create')}}"><i class="fas fa-user-graduate"></i> Aprendices</a></li>
         </ul>
     </div>

@@ -13,26 +13,50 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Rutas para Areas
+// --- AREAS ---
 Route::get('areas/create', [AreaController::class, 'create'])->name('area.create');
-Route::post('areas/store', [AreaController::class, 'store'])->name('area.store'); // CORREGIDO: el método es 'store'
+Route::post('areas/store', [AreaController::class, 'store'])->name('area.store');
+Route::get('areas', [AreaController::class, 'index'])->name('area.index');
+Route::get('areas/{id}/edit', [AreaController::class, 'edit'])->name('area.edit');
+Route::put('areas/{id}', [AreaController::class, 'update'])->name('area.update');
+Route::delete('areas/{id}', [AreaController::class, 'destroy'])->name('area.destroy');
 
-// Rutas para Centros de Formacion
+// --- CENTROS DE FORMACION ---
 Route::get('trainingcenter/registrar', [TrainingCenterController::class, 'create'])->name('training_center.create');
-Route::post('trainingcenter/salidas', [TrainingCenterController::class, 'store'])->name('training_center.salidas');
+Route::post('trainingcenter/store', [TrainingCenterController::class, 'store'])->name('training_center.store');
+Route::get('trainingcenter', [TrainingCenterController::class, 'index'])->name('training_center.index');
+Route::get('trainingcenter/{id}/edit', [TrainingCenterController::class, 'edit'])->name('training_center.edit');
+Route::put('trainingcenter/{id}', [TrainingCenterController::class, 'update'])->name('training_center.update');
+Route::delete('trainingcenter/{id}', [TrainingCenterController::class, 'destroy'])->name('training_center.destroy');
 
-// Rutas para Computadores
-Route::get('computer/computador', [ComputerController::class, 'marca'])->name('computer.create');
-Route::post('computer/model', [ComputerController::class, 'model'])->name('computer.store');
+// --- COMPUTADORES ---
+Route::get('computer/computador', [ComputerController::class, 'create'])->name('computer.create');
+Route::post('computer/store', [ComputerController::class, 'store'])->name('computer.store');
+Route::get('computers', [ComputerController::class, 'index'])->name('computer.index');
+Route::get('computers/{id}/edit', [ComputerController::class, 'edit'])->name('computer.edit');
+Route::put('computers/{id}', [ComputerController::class, 'update'])->name('computer.update');
+Route::delete('computers/{id}', [ComputerController::class, 'destroy'])->name('computer.destroy');
 
-// Rutas para Instructores 
-Route::get('teacher/registro', [TeacherController::class, 'registro'])->name('teacher.create');
-Route::post('teacher/admin', [TeacherController::class, 'dato'])->name('teacher.admin');
+// --- INSTRUCTORES --- 
+Route::get('teacher/registro', [TeacherController::class, 'create'])->name('teacher.create');
+Route::post('teacher/store', [TeacherController::class, 'store'])->name('teacher.store');
+Route::get('teachers', [TeacherController::class, 'index'])->name('teacher.index');
+Route::get('teachers/{id}/edit', [TeacherController::class, 'edit'])->name('teacher.edit');
+Route::put('teachers/{id}', [TeacherController::class, 'update'])->name('teacher.update');
+Route::delete('teachers/{id}', [TeacherController::class, 'destroy'])->name('teacher.destroy');
 
-// Rutas para Cursos
-Route::get('course/registro', [CourseController::class, 'registro'])->name('course.registro');
-Route::post('course/admin', [CourseController::class, 'dato'])->name('course.peticion');
+// --- CURSOS ---
+Route::get('course/registro', [CourseController::class, 'create'])->name('course.create');
+Route::post('course/store', [CourseController::class, 'store'])->name('course.store');
+Route::get('courses', [CourseController::class, 'index'])->name('course.index');
+Route::get('courses/{id}/edit', [CourseController::class, 'edit'])->name('course.edit');
+Route::put('courses/{id}', [CourseController::class, 'update'])->name('course.update');
+Route::delete('courses/{id}', [CourseController::class, 'destroy'])->name('course.destroy');
 
-// Rutas para Aprendices
-Route::get('apprentice/registro', [ApprenticeController::class, 'registro'])->name('apprentice.create');
-Route::post('apprentice/admin', [ApprenticeController::class, 'dato'])->name('apprentice.completado');
+// --- APRENDICES ---
+Route::get('apprentice/registro', [ApprenticeController::class, 'create'])->name('apprentice.create');
+Route::post('apprentice/store', [ApprenticeController::class, 'store'])->name('apprentice.store');
+Route::get('apprentices', [ApprenticeController::class, 'index'])->name('apprentice.index');
+Route::get('apprentices/{id}/edit', [ApprenticeController::class, 'edit'])->name('apprentice.edit');
+Route::put('apprentices/{id}', [ApprenticeController::class, 'update'])->name('apprentice.update');
+Route::delete('apprentices/{id}', [ApprenticeController::class, 'destroy'])->name('apprentice.destroy');

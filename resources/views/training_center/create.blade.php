@@ -18,8 +18,8 @@
                     </div>
                 @endif
 
-                {{-- Formulario --}}
-                <form action="{{ route('training_center.salidas') }}" method="POST">
+                {{-- Formulario corregido --}}
+                <form action="{{ route('training_center.store') }}" method="POST">
                     @csrf
                     
                     <div class="mb-3">
@@ -41,6 +41,10 @@
                     <button type="submit" class="btn btn-primary w-100 py-2 mt-3">
                         <i class="fa fa-save me-2"></i>Guardar Registro
                     </button>
+
+                    <a href="{{ route('training_center.index') }}" class="btn btn-secondary w-100 py-2 mt-2">
+                        Volver a la lista
+                    </a>
                 </form>
             </div>
         </div>

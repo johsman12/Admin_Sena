@@ -8,39 +8,63 @@ use App\Models\Computer;
 
 class ComputerController extends Controller
 {
-    /**
-     * Muestra el formulario de registro.
-     */
-    public function marca()
+    // Cambiado de 'marca' a 'create'
+    public function create()
     {
         return view('computer.create');
     }
 
-    /**
-     * Procesa los datos del formulario y guarda en la base de datos.
-     */
-    public function model(Request $request)
+    // Cambiado de 'model' a 'store'
+    public function store(Request $request)
     {
-        // 1. Validamos que los datos lleguen obligatoriamente
-        
+        $request->validate([
+            'number' => 'required|numeric', 
+            'brand'  => 'required|string|max:255',
+        ]);
+
+        Computer::create([
+            'number' => $request->number,
+            'brand'  => $request->brand,
+        ]);
+
+        return redirect()->route('computer.index')->with('success', 'Registrado exitosamente');
+    }
+
+    // --- MÉTODOS PARA EL LISTADO Y GESTIÓN ---
+
+    public function index()
+    {
+        $computers = Computer::all();
+        return view('computer.index', compact('computers'));
+    }
+
+    public function edit(int $id)
+    {
+        $computer = Computer::findOrFail($id);
+        return view('computer.edit', compact('computer'));
+    }
+
+    public function update(Request $request, int $id)
+    {
         $request->validate([
             'number' => 'required|numeric',
             'brand'  => 'required|string|max:255',
         ]);
 
-        // 2. Intentamos guardar la información
-        try {
-            Computer::create([
-                'number' => $request->input('number'),
-                'brand'  => $request->input('brand'),
-            ]);
+        $computer = Computer::findOrFail($id);
+        $computer->update([
+            'number' => $request->number,
+            'brand'  => $request->brand,
+        ]);
 
-            // 3. Redirigimos de vuelta con un mensaje de éxito
-            return redirect()->back()->with('success', '¡Computador registrado exitosamente!');
-            
-        } catch (\Exception $e) {
-            // Si hay un error de base de datos, lo capturamos aquí
-            return redirect()->back()->withErrors(['error' => 'No se pudo guardar en la base de datos: ' . $e->getMessage()]);
-        }
+        return redirect()->route('computer.index')->with('success', 'Actualizado correctamente');
+    }
+
+    public function destroy(int $id)
+    {
+        $computer = Computer::findOrFail($id);
+        $computer->delete();
+
+        return redirect()->route('computer.index')->with('success', 'Eliminado correctamente');
     }
 }

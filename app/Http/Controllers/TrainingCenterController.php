@@ -8,6 +8,12 @@ use App\Models\TrainingCenters;
 
 class TrainingCenterController extends Controller
 {
+    public function index()
+    {
+        $centers = TrainingCenters::all();
+        return view('training_center.index', compact('centers'));
+    }
+
     public function create()
     {
         return view('training_center.create');
@@ -15,10 +21,9 @@ class TrainingCenterController extends Controller
 
     public function store(Request $request)
     {
-        // Ajusta los campos segUn la migracion "create_training_centers_table"
         $request->validate([
             'name' => 'required|string|max:255',
-            'location' => 'required|string',
+            'location' => 'required|string|max:255',
         ]);
 
         TrainingCenters::create([
@@ -26,6 +31,35 @@ class TrainingCenterController extends Controller
             'location' => $request->location,
         ]);
 
-        return redirect()->route('training_center.create')->with('success', 'Centro de formación creado con éxito.');
+        return redirect()->route('training_center.index')->with('success', 'Centro creado con éxito.');
+    }
+
+    public function edit(int $id)
+    {
+        $center = TrainingCenters::findOrFail($id);
+        return view('training_center.edit', compact('center'));
+    }
+
+    public function update(Request $request, int $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+        ]);
+
+        $center = TrainingCenters::findOrFail($id);
+        $center->update([
+            'name' => $request->name,
+            'location' => $request->location,
+        ]);
+
+        return redirect()->route('training_center.index')->with('success', 'Centro actualizado.');
+    }
+
+    public function destroy(int $id)
+    {
+        $center = TrainingCenters::findOrFail($id);
+        $center->delete();
+        return redirect()->route('training_center.index')->with('success', 'Centro eliminado.');
     }
 }

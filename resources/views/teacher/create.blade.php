@@ -64,8 +64,8 @@
     </style>
 </head>
 <body>
-    <form action="{{ route('teacher.admin') }}" method="POST" enctype="multipart/form-data">
-        <h1>Registro de Instructor</h1>
+    <form action="{{ route('teacher.store') }}" method="POST" ... >        
+    <h1>Registro de Instructor</h1>
         @csrf
         <label>
             Nombre:

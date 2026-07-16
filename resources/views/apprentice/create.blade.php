@@ -8,8 +8,7 @@
                 <!-- Título con color verde SENA -->
                 <h1 class="text-center mb-4" style="color: #39A900;">Registro de Aprendiz</h1>
                 
-                <form action="{{ route('apprentice.completado') }}" method="POST">
-                    @csrf
+                    <form action="{{ route('apprentice.store') }}" method="POST">                    @csrf
                     
                     <div class="mb-3">
                         <label class="form-label fw-bold">Nombre:</label>

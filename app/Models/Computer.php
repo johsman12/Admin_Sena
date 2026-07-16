@@ -9,10 +9,11 @@ class Computer extends Model
 {
     use HasFactory;
 
+    // DEBE ser 'number' porque es el nombre real de tu columna
     protected $fillable = ['brand', 'number'];
     
-    // El computador pertenece a un aprendiz
-   public function apprentice() {
-        return $this->hasOne('App\Models\Apprentices', 'computer_id');
+    // Relación
+    public function apprentice() {
+        return $this->hasOne(Apprentices::class, 'computer_id');
     }
 }
