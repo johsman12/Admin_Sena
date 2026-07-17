@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+// Importación de todos los controladores necesarios
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TrainingCenterController;
 use App\Http\Controllers\ComputerController;
 use App\Http\Controllers\AreaController;
@@ -9,9 +11,8 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ApprenticeController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// RUTA PRINCIPAL - Ahora llama al DashboardController
+Route::get('/', [DashboardController::class, 'index']);
 
 // --- AREAS ---
 Route::get('areas/create', [AreaController::class, 'create'])->name('area.create');

@@ -32,21 +32,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('apprentice.create') }}">Apprentice</a>
                 </li>
-
-                <!-- Menú Desplegable "Listas" -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Listas
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="{{ route('area.create') }}">Area</a></li>
-                        <li><a class="dropdown-item" href="{{ route('training_center.create') }}">Trainingcenter</a></li>
-                        <li><a class="dropdown-item" href="{{ route('computer.create') }}">Computer</a></li>
-                        <li><a class="dropdown-item" href="{{ route('course.create') }}">Course</a></li>
-                        <li><a class="dropdown-item" href="{{ route('teacher.create') }}">Teacher</a></li>
-                        <li><a class="dropdown-item" href="{{ route('apprentice.create') }}">Apprentice</a></li>
-                    </ul>
-                </li>
             </ul>
         </div>
     </div>

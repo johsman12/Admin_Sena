@@ -3,26 +3,27 @@
 @section('content')
 <div class="d-flex justify-content-center align-items-center" style="min-height: 70vh; padding: 20px;">
     
-    <form action="{{ route('computer.store') }}" method="POST" class="form-container">
+    <form action="{{ route('computer.update', $computer->id) }}" method="POST" class="form-container">
         @csrf
-        <h1>Registro del Computador</h1>
+        @method('PUT')
+        
+        <h1 style="text-align: center; color: #39A900; margin-bottom: 20px;">Editar Computador</h1>
         
         <label>
             Número de Serie:
-            <input type="number" name="number" placeholder="Ej. 1024" required>
+            <input type="number" name="number" value="{{ $computer->number }}" required>
         </label>
         
         <label>
             Marca:
-            <input type="text" name="brand" placeholder="Ej. Dell, Lenovo, HP" required>
+            <input type="text" name="brand" value="{{ $computer->brand }}" required>
         </label>
 
-        <button type="submit" class="btn btn-submit" style="width: 100%;">Enviar</button>
+        <button type="submit" class="btn btn-submit" style="width: 100%;">Actualizar Computador</button>
     </form>
 </div>
 
 <style>
-    /* Estilos del formulario */
     .form-container {
         background-color: #ffffff;
         padding: 30px;
@@ -39,7 +40,7 @@
 
     label { font-size: 14px; font-weight: 600; color: #374151; display: flex; flex-direction: column; gap: 6px; }
 
-    input[type="text"], input[type="number"] {
+    input {
         padding: 10px 14px;
         border: 1px solid #d1d5db;
         border-radius: 6px;
@@ -50,23 +51,20 @@
 
     input:focus { border-color: #39A900; box-shadow: 0 0 0 3px rgba(57, 169, 0, 0.15); }
 
-    .btn {
+    .btn-submit {
+        background-color: #39A900;
+        color: white;
         padding: 12px;
-        font-weight: 600;
         border: none;
         border-radius: 6px;
+        font-weight: bold;
         cursor: pointer;
-        text-align: center;
-        text-decoration: none;
-        color: white;
         transition: all 0.2s ease;
     }
 
-    .btn:hover {
+    .btn-submit:hover {
         transform: scale(1.03);
         filter: brightness(110%);
     }
-
-    .btn-submit { background-color: #39A900; }
 </style>
 @endsection
