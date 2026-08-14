@@ -11,8 +11,13 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ApprenticeController;
 
-// RUTA PRINCIPAL - Ahora llama al DashboardController
+// RUTA PRINCIPAL 
 Route::get('/', [DashboardController::class, 'index']);
+
+// --- QUIeNES SOMOS ---
+Route::get('/quienes-somos', function () {
+    return view('quienes_somos.index');
+})->name('quienes.somos');
 
 // --- AREAS ---
 Route::get('areas/create', [AreaController::class, 'create'])->name('area.create');
