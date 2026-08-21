@@ -12,9 +12,15 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ApprenticeController;
 
 // RUTA PRINCIPAL 
-Route::get('/', [DashboardController::class, 'index']);
+Route::get('/', [DashboardController::class, 'index'])->name('home');
 
-// --- QUIeNES SOMOS ---
+// --- RUTA DE LOGIN (Apunta directamente a resources/views/login.blade.php) ---
+Route::get('/login', function () {
+    $role = request('role', 'invitado');
+    return view('auth.login', compact('role'));
+})->name('login');
+
+// --- QUIÉNES SOMOS ---
 Route::get('/quienes-somos', function () {
     return view('quienes_somos.index');
 })->name('quienes.somos');
