@@ -17,13 +17,14 @@ return new class extends Migration
             $table->string('day');
 
             $table->unsignedBigInteger('area_id');
-            $table->unsignedBigInteger('training_center_id');
 
              $table->foreign('area_id')
              ->references('id')
              ->on('areas')
             ->onDelete('cascade')
             ->onUpdate('cascade');
+
+            $table->unsignedBigInteger('training_center_id');
 
             $table->foreign('training_center_id')
             ->references('id')

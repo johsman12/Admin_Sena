@@ -10,9 +10,12 @@ use App\Http\Controllers\AreaController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ApprenticeController;
+use App\Http\Controllers\AmbienteController; // <-- Importación agregada
 
 // RUTA PRINCIPAL 
-Route::get('/', [DashboardController::class, 'index'])->name('home');
+Route::get('/', function () {
+    return view('welcome');
+});
 
 // --- RUTA DE LOGIN (Apunta directamente a resources/views/login.blade.php) ---
 Route::get('/login', function () {
@@ -49,6 +52,7 @@ Route::get('computers/{id}/edit', [ComputerController::class, 'edit'])->name('co
 Route::put('computers/{id}', [ComputerController::class, 'update'])->name('computer.update');
 Route::delete('computers/{id}', [ComputerController::class, 'destroy'])->name('computer.destroy');
 
+
 // --- INSTRUCTORES --- 
 Route::get('teacher/registro', [TeacherController::class, 'create'])->name('teacher.create');
 Route::post('teacher/store', [TeacherController::class, 'store'])->name('teacher.store');
@@ -72,3 +76,11 @@ Route::get('apprentices', [ApprenticeController::class, 'index'])->name('apprent
 Route::get('apprentices/{id}/edit', [ApprenticeController::class, 'edit'])->name('apprentice.edit');
 Route::put('apprentices/{id}', [ApprenticeController::class, 'update'])->name('apprentice.update');
 Route::delete('apprentices/{id}', [ApprenticeController::class, 'destroy'])->name('apprentice.destroy');
+
+// --- AMBIENTES ---
+Route::get('ambiente/registro', [AmbienteController::class, 'create'])->name('ambiente.create');
+Route::post('ambiente/store', [AmbienteController::class, 'store'])->name('ambiente.store');
+Route::get('ambientes', [AmbienteController::class, 'index'])->name('ambiente.index');
+Route::get('ambientes/{ambiente}/edit', [AmbienteController::class, 'edit'])->name('ambiente.edit');
+Route::put('ambientes/{ambiente}', [AmbienteController::class, 'update'])->name('ambiente.update');
+Route::delete('ambientes/{ambiente}', [AmbienteController::class, 'destroy'])->name('ambiente.destroy');

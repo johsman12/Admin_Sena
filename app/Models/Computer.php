@@ -9,11 +9,21 @@ class Computer extends Model
 {
     use HasFactory;
 
-    // DEBE ser 'number' porque es el nombre real de tu columna
-    protected $fillable = ['brand', 'number'];
-    
-    // Relación
+    protected $table = 'computers';
+
+    // Campos permitidos para asignación masiva 
+    protected $fillable = [
+        'number',
+        'brand',
+        'imagen_url',
+        'imagen_public_id',
+    ];
+
     public function apprentice() {
         return $this->hasOne(Apprentices::class, 'computer_id');
+    }
+
+    public function ambiente(){
+        return $this->belongsTo(Ambiente::class, 'ambiente_id');
     }
 }

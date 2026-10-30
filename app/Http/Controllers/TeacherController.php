@@ -4,58 +4,62 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Areas;
+use Illuminate\Validation\Rule;
 use App\Models\Teachers;
-use App\Models\TrainingCenters;
-use App\Models\Courses;
-use App\Models\Computer;
 
 class TeacherController extends Controller
 {
     public function index()
     {
         $teachers = Teachers::all();
-        return view('teacher.index', compact('teachers'));
-    }
-
-    public function create()
-    {
-        $areas = Areas::all();
-        $training_centers = TrainingCenters::all();
-        $courses = Courses::all();
-        $computers = Computer::all();
-        
-        return view('teacher.create', compact('areas', 'training_centers', 'courses', 'computers'));
+        return response()->json($teachers);
     }
     
     public function store(Request $request)
     {
-        Teachers::create($request->all());
-        return redirect()->route('teacher.index')->with('success', 'Instructor registrado correctamente.');
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:teachers,email',
+            'cell_number' => 'required|string|max:30',
+            'area_id' => 'required|exists:areas,id',
+            'training_center_id' => 'required|exists:training_centers,id',
+        ]);
+
+        $teachers = Teachers::create($validated);
+        return response()->json($teachers, 201);
     }
 
-    public function edit(int $id)
+    public function show($id)
     {
-        $teacher = Teachers::findOrFail($id);
-        $areas = Areas::all();
-        $training_centers = TrainingCenters::all();
-        $courses = Courses::all();
-        $computers = Computer::all();
+        $teachers = Teachers::findOrFail($id);
+        return response()->json($teachers);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $teachers = Teachers::findOrFail($id);
+        $validated = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'email' => [
+                'sometimes',
+                'required',
+                'email',
+                Rule::unique('teachers', 'email')->ignore($teachers->getKey()),
+            ],
+            'cell_number' => 'sometimes|required|string|max:30',
+            'area_id' => 'sometimes|required|exists:areas,id',
+            'training_center_id' => 'sometimes|required|exists:training_centers,id',
+        ]);
+        $teachers->update($validated);
         
-        return view('teacher.edit', compact('teacher', 'areas', 'training_centers', 'courses', 'computers'));
+        return response()->json($teachers);
     }
 
-    public function update(Request $request, int $id)
+    public function destroy($id)
     {
-        $teacher = Teachers::findOrFail($id);
-        $teacher->update($request->all());
-        return redirect()->route('teacher.index')->with('success', 'Instructor actualizado correctamente.');
-    }
-
-    public function destroy(int $id)
-    {
-        $teacher = Teachers::findOrFail($id);
-        $teacher->delete();
-        return redirect()->route('teacher.index')->with('success', 'Instructor eliminado correctamente.');
+        $teachers = Teachers::findOrFail($id);
+        $teachers->delete();
+        
+        return response()->json($teachers);
     }
 }

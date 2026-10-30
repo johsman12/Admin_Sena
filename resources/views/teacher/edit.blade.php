@@ -18,33 +18,39 @@
 </head>
 <body>
 
-    <form action="{{ route('teacher.update', $teacher->id) }}" method="POST">
+    <form action="{{ route('teachers.update', $teacher['id']) }}" method="POST">
         @csrf
         @method('PUT')
         <h1>Editar Instructor</h1>
         
         <label>Nombre:
-            <input type="text" name="name" value="{{ $teacher->name }}" required>
+            <input type="text" name="name" value="{{ $teacher['name'] ?? '' }}" required>
         </label>
         
         <label>Email:
-            <input type="email" name="email" value="{{ $teacher->email }}" required>
+            <input type="email" name="email" value="{{ $teacher['email'] ?? '' }}" required>
+        </label>
+
+        <label>Teléfono:
+            <input type="text" name="phone" value="{{ $teacher['phone'] ?? '' }}" required>
         </label>
         
         <label for="area_id">Área:</label>
         <select name="area_id" id="area_id" required>
+            <option value="">Seleccione un área</option>
             @foreach ($areas as $area)
-                <option value="{{ $area->id }}" {{ $teacher->area_id == $area->id ? 'selected' : '' }}>
-                    {{ $area->name }}
+                <option value="{{ $area['id'] }}" {{ (isset($teacher['area_id']) && $teacher['area_id'] == $area['id']) ? 'selected' : '' }}>
+                    {{ $area['name'] }}
                 </option>
             @endforeach
         </select>
 
         <label for="training_center_id">Centro de formación:</label>
         <select name="training_center_id" id="training_center_id" required>
-            @foreach ($training_centers as $training)
-                <option value="{{ $training->id }}" {{ $teacher->training_center_id == $training->id ? 'selected' : '' }}>
-                    {{ $training->name }}
+            <option value="">Seleccione un centro</option>
+            @foreach ($training_centers as $center)
+                <option value="{{ $center['id'] }}" {{ (isset($teacher['training_center_id']) && $teacher['training_center_id'] == $center['id']) ? 'selected' : '' }}>
+                    {{ $center['name'] }}
                 </option>
             @endforeach
         </select>

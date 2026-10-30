@@ -4,61 +4,66 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Apprentices;
-use App\Models\Courses;
-use App\Models\Computer;
 
 class ApprenticeController extends Controller
 {
+    // Listar todas las áreas (GET)
     public function index()
     {
         $apprentices = Apprentices::all();
-        return view('apprentice.index', compact('apprentices'));
+        return response()->json($apprentices);
     }
 
-    public function create()
-    {
-        $courses = Courses::all(); 
-        $computers = Computer::all();
-        return view('apprentice.create', compact('courses', 'computers'));
-    }
-    
+    // Guardar un nuevo aprendiz (POST)
     public function store(Request $request)
     {
-        // Guardado específico para mayor seguridad
-        Apprentices::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'cell_number' => $request->cell_number,
-            'course_id' => $request->course_id,
-            'computer_id' => $request->computer_id,
-        ]);
-
-        return redirect()->route('apprentice.index')->with('success', 'Aprendiz registrado con éxito.');
+        $apprentice = Apprentices::create($request->all());
+        return response()->json($apprentice);
     }
 
-    // Método agregado para cargar la vista de edición
-    public function edit(int $id)
+    // Mostrar un aprendiz específico (GET /v1/apprentices/{id})
+    public function show(int $id)
     {
-        $apprentice = Apprentices::findOrFail($id);
-        $courses = Courses::all();
-        $computers = Computer::all();
-        
-        return view('apprentice.edit', compact('apprentice', 'courses', 'computers'));
+        $apprentice = Apprentices::find($id);
+
+        if (!$apprentice) {
+            return response()->json(['message' => 'Aprendiz no encontrado'], 404);
+        }
+
+        return response()->json($apprentice);
     }
 
-    // Método agregado para procesar la actualización
-    public function update(Request $request, int $id)
+    // Actualizar un aprendiz (PUT/PATCH /v1/apprentices/{id})
+    public function update(Request $request, $id)
     {
-        $apprentice = Apprentices::findOrFail($id);
-        
-        $apprentice->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'cell_number' => $request->cell_number,
-            'course_id' => $request->course_id,
-            'computer_id' => $request->computer_id,
+        $apprentice = Apprentices::find($id);
+
+        if (!$apprentice) {
+            return response()->json(['message' => 'Aprendiz no encontrado'], 404);
+        }
+
+        $request->validate([
+            'name' => 'required|string|max:255',
         ]);
-        
-        return redirect()->route('apprentice.index')->with('success', 'Aprendiz actualizado correctamente.');
+
+        $apprentice->update($request->all());
+
+        return response()->json([
+            'message' => 'Aprendiz actualizado correctamente',
+            'data' => $apprentice
+        ]);
+    }
+
+    // Eliminar un aprendiz (DELETE /v1/apprentices/{id})
+    public function destroy($id)
+    {
+        $apprentice = Apprentices::find($id);
+
+        if (!$apprentice) {
+            return response()->json(['message' => 'Aprendiz no encontrado'], 404);
+        }
+
+        $apprentice->delete();
+        return response()->json(['message' => 'Aprendiz eliminado correctamente']);
     }
 }

@@ -7,7 +7,7 @@
             <div class="card-body p-4">
                 <h1 class="text-center mb-4" style="color: #39A900;">Registro de Instructor</h1>
                 
-                <form action="{{ route('teacher.store') }}" method="POST">
+                <form action="{{ route('teachers.store') }}" method="POST">
                     @csrf
                     
                     <div class="mb-3">
@@ -22,7 +22,7 @@
 
                     <div class="mb-3">
                         <label class="form-label fw-bold">Número de celular:</label>
-                        <input type="number" name="cell_number" class="form-control" required>
+                        <input type="number" name="phone" class="form-control" required>
                     </div>
 
                     <div class="mb-3">
@@ -30,7 +30,7 @@
                         <select name="area_id" class="form-select" required>
                             <option value="">Seleccione un área</option>
                             @foreach ($areas as $area)
-                                <option value="{{ $area->id }}">{{ $area->name }}</option>
+                                <option value="{{ $area['id'] }}">{{ $area['name'] }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -40,27 +40,27 @@
                         <select name="training_center_id" class="form-select" required>
                             <option value="">Seleccione un centro</option>
                             @foreach ($training_centers as $center)
-                                <option value="{{ $center->id }}">{{ $center->name }}</option>
+                                <option value="{{ $center['id'] }}">{{ $center['name'] }}</option>
                             @endforeach
                         </select>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label fw-bold">Curso:</label>
-                        <select name="course_id" class="form-select" required>
-                            <option value="">Seleccione un curso</option>
+                        <select name="course_id" class="form-select">
+                            <option value="">Seleccione un curso (Opcional)</option>
                             @foreach ($courses as $course)
-                                <option value="{{ $course->id }}">{{ $course->course }}</option>
+                                <option value="{{ $course['id'] }}">{{ $course['name'] ?? $course['course_number'] ?? 'Curso ID: '.$course['id'] }}</option>
                             @endforeach
                         </select>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label fw-bold">Computador:</label>
-                        <select name="computer_id" class="form-select" required>
-                            <option value="">Seleccione un computador</option>
+                        <select name="computer_id" class="form-select">
+                            <option value="">Seleccione un computador (Opcional)</option>
                             @foreach ($computers as $computer)
-                                <option value="{{ $computer->id }}">{{ $computer->id }}</option>
+                                <option value="{{ $computer['id'] }}">{{ $computer['brand'] ?? 'PC ID: '.$computer['id'] }}</option>
                             @endforeach
                         </select>
                     </div>

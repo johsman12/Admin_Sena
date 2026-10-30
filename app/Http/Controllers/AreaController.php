@@ -2,67 +2,70 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Areas; 
+use App\Models\Areas; // Asegúrate de tener tu modelo importado
+
 
 class AreaController extends Controller
 {
-    // Muestra el formulario para crear una nueva área
-    public function create()
-    {
-        return view('area.create'); 
-    }
-
-    // Guarda una nueva área en la base de datos
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255', 
-        ]);
-
-        Areas::create([
-            'name' => $request->name,
-        ]);
-
-        return redirect()->route('area.index')->with('success', 'Área creada con éxito.');
-    }
-
-    // Muestra el listado de áreas
+    // Listar todas las áreas (GET)
     public function index()
     {
-        $areas = Areas::all(); 
-        return view('area.index', compact('areas')); 
+        $areas = Areas::all();
+        return response()->json($areas);
     }
 
-    // Muestra el formulario para editar un área existente
-    public function edit(int $id)
+    // Guardar una nueva área (POST)
+    public function store(Request $request)
     {
-        $area = Areas::findOrFail($id); 
-        return view('area.edit', compact('area'));
+        $areas = Areas::create($request->all());
+        return response()->json($areas);
     }
 
-    // Actualiza la información del área
-    public function update(Request $request, int $id)
+    // Mostrar un área específica (GET /v1/areas/{id})
+    public function show(int $id)
     {
+        $area = Areas::find($id);
+
+        if (!$area) {
+            return response()->json(['message' => 'Área no encontrada'], 404);
+        }
+
+        return response()->json($area);
+    }
+
+    // Actualizar un área (PUT/PATCH /v1/areas/{id})
+    public function update(Request $request, $id)
+    {
+        $area = Areas::find($id);
+
+        if (!$area) {
+            return response()->json(['message' => 'Área no encontrada'], 404);
+        }
+
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
 
-        $area = Areas::findOrFail($id);
-        $area->update([
-            'name' => $request->name,
-        ]);
+        $area->update($request->all());
 
-        return redirect()->route('area.index')->with('success', 'Área actualizada correctamente.');
+        return response()->json([
+            'message' => 'Área actualizada correctamente',
+            'data' => $area
+        ]);
     }
 
-    // Elimina un área de la base de datos
-    public function destroy(int $id)
+    // Eliminar un área (DELETE /v1/areas/{id})
+    public function destroy($id)
     {
-        $area = Areas::findOrFail($id);
+        $area = Areas::find($id);
+
+        if (!$area) {
+            return response()->json(['message' => 'Área no encontrada'], 404);
+        }
+
         $area->delete();
 
-        return redirect()->route('area.index')->with('success', 'Área eliminada correctamente.');
+        return response()->json(['message' => 'Área eliminada correctamente']);
     }
 }

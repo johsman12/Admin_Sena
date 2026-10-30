@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email');
-
+            $table->string('cell_number');
             $table->unsignedBigInteger('area_id');
             $table->unsignedBigInteger('training_center_id');
 
@@ -30,7 +30,7 @@ return new class extends Migration
            ->on('training_centers') 
            ->onDelete('cascade')
            ->onUpdate('cascade');
-
+           
             $table->timestamps();
         });
     }

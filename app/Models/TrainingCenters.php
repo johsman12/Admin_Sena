@@ -9,12 +9,16 @@ class TrainingCenters extends Model
 {
     use HasFactory;
 
-    // Especificamos el nombre de la tabla por si acaso
     protected $table = 'training_centers';
 
-    protected $fillable = ['name', 'location'];
+    // Campos permitidos para asignación masiva 
+    protected $fillable = [
+        'name',
+        'location',
+        'imagen_url',
+        'imagen_public_id',
+    ];
 
-    // Relaciones
     public function teachers() {
         return $this->hasMany(Teachers::class, 'training_center_id');
     }
